@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{# NB: n'oublie pas de faire quelque chose pour les formulaires , allez dans CONFIG et en dessous de default_path
+ : tu ecris : form_themes: ['bootstrap_5_layout.html'] (ça c est pour automatiquelent appliquer bootstrap a tous nos inputs)
+ 
+ et pour les photos c est serice yaml tu mets en dessous de parametres : uploads_dir: '%kernel.project_dir%/public/uploads'#}
+{% block body %}
+
+   
+         <h1 class="my-4 text-center">Inscription</h1>
+   
+   
+
+         <div class="row">
+         <div class="col-6 mx-auto">
+
+             {{ form_start(form) }}
+            
+            <div class="row">
+                <div class="col-6"> {{ form_row(form.firstname) }} </div>
+                <div class="col-6"> {{ form_row(form.lastname) }} </div>
+            </div>
+
+            {{ form_end(form) }}  
+            {#qd on appelle ps le form_row {form(form)} le form_end va automatiquement rendre ce tt ce qui rest#} 
+        </div>
+    </div>
+
+{% endblock %}
