@@ -39,7 +39,7 @@ class ArticleFormType extends AbstractType
         ->add('category', EntityType::class, [
             'class' => Category::class,
             'choice_label' => 'name',
-            'label' => 'Catégorie',
+            'label' => 'Catégorie',  // dans les formes Type symfony conseille de mettre la virgule a la fin.
         ])
         ->add('submit', SubmitType::class, [
             'label' => 'Valider',
