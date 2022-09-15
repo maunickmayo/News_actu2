@@ -34,15 +34,20 @@ class AdminController extends AbstractController
         // une erreur, qui est attrapée dans le catch et cela redirige avec un message dans une partie
         // autorisée pour les différents rôles. et apres faites la hiérachie des roles en identant correctement avec l'acces_control
         /* role_hierarchy:    
-                ROLE_ADMIN: ROLE_USER   */
-
+                ROLE_ADMIN: ROLE_USER  
+                
+                NB: la flèche (->), c'est un operateur d'accession , accesseur, elle permet d'acceder a des proprietes et des méthodes, à ce qui appartient a un objet.
+        */
         try {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
         } catch (AccessDeniedException $exception) {
             $this->addFlash('warning', 'Cette partie du site est réservée aux admins');
             return $this->redirectToRoute('default_home');
         }
-
+         /* NB: la function read (show) sera tjrs avec un Repository  (CRUD) , les reste c est l'Entity Manager qui gere
+         - principe S.O.L.I.D: qui ns permet.. D : dependency injection 
+         NB:lrsqu'on a des parametres l'entity doit être tjrs en premier.
+          */ 
         $articles = $entityManager->getRepository(Article::class)->findBy(['deletedAt' => null]);
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -209,8 +214,9 @@ class AdminController extends AbstractController
      * @Route("/voir-les-articles-archives", name="show_trash", methods={"GET"})
      */
     public function showTrash(EntityManagerInterface $entityManager): Response
-    {                          // (Article $article) on les recuo deouis la bdd et non des independances
-                               // slide (on l app ascensseur, gitignore /public/uploads/) 
+    {    // (Article $article) on les recuo deouis la bdd et non des independances
+        // slide (on l app ascensseur, gitignore /public/uploads/) 
+       // show trash pareil que show dasboard juste ceux qui ont été archivés
         $archivedArticles = $entityManager->getRepository(Article::class)->findByTrash();
 
         return $this->render("admin/trash/article_trash.html.twig", [
