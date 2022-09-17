@@ -1,0 +1,18 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[1].use[1]!./assets/styles/app.css ***!
+  \**************************************************************************************************************/
+body {
+    background-color: lightgray;
+}
+
+.img-custom{
+    height: 600px;
+    object-fit: contain;
+}
+.img-custom-thumbnail {
+    width : 18rem;
+    height : 200px;
+    object-fit : cover;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtJQUNJLDJCQUEyQjtBQUMvQjs7QUFFQTtJQUNJLGFBQWE7SUFDYixtQkFBbUI7QUFDdkI7QUFDQTtJQUNJLGFBQWE7SUFDYixjQUFjO0lBQ2Qsa0JBQWtCO0FBQ3RCLEMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvc3R5bGVzL2FwcC5jc3MiXSwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRncmF5O1xufVxuXG4uaW1nLWN1c3RvbXtcbiAgICBoZWlnaHQ6IDYwMHB4O1xuICAgIG9iamVjdC1maXQ6IGNvbnRhaW47XG59XG4uaW1nLWN1c3RvbS10aHVtYm5haWwge1xuICAgIHdpZHRoIDogMThyZW07XG4gICAgaGVpZ2h0IDogMjAwcHg7XG4gICAgb2JqZWN0LWZpdCA6IGNvdmVyO1xufSJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/
