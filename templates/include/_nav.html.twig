@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">NewsActu</a>
+        <a class="navbar-brand" href="{{ path('default_home') }}">NewsActu</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,48 +10,60 @@
                     <a class="nav-link active" aria-current="page" href="{{ path('default_home') }}">Accueil</a>
                 </li>
 
-                 {% if not app.user %}
+                {% if not app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">S'inscrire</a>
+                        <a class="nav-link" href="{{ path('user_register') }}">S'inscrire</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                     </li>
-                 {% else %}
+                {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Espace perso</a>
+                        <a class="nav-link" href="{{ path('show_profile') }}">Espace perso</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                     </li>
-               
-                 {% endif %}
-              
-                 {% if is_granted("ROLE_ADMIN") %}
+                {% endif %}
+
+                {% if is_granted("ROLE_ADMIN") %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Espace Admin
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#"> Ajouter un article</a></li>
-                            <li><a class="dropdown-item" href="#">Ajouter une catégorie</a></li>
+                            <li><a class="dropdown-item" href="{{ path('show_dashboard') }}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{ path('create_article') }}"> Ajouter un article</a></li>
+                            <li><a class="dropdown-item" href="{{ path('create_category') }}">Ajouter une catégorie</a></li>
                         </ul>
                     </li>
-                  {% endif %}
+                {% endif %}
 
             </ul>
         </div>
     </div>
-    
+
     {% if app.user %}
 
+        <div class="text-nowrap">Vous êtes connecté {{ app.user.firstname }} en tant que : <span class="text-warning">{{ app.user.roles | first }}</span></div>
+
     {% endif %}
-  
 </nav>
 
 <div class="bg-light">
   
+     {#  1 ère façon
+      lorsque vs n'avez ps de route ds votre ction et qu'il n'y a pas de parametres (ccoe un id ds la route )
+      on utilisera la fction twig render()et la fction controller().
+      l'appel de l'action se fera de maniere statique et il faudra renseigner le namespace du controller. Vous DEVREZ mettre 2 back-slah (\\) pour cet appel.
+      #}
+{# {{ render(controller('App\\Controller\\RenderController::renderCategoriesInNav')) }}#}
+                                         {# ici c est un appel statique #}
+      {#  2éme façon
+      Lorsque vs avez une route sur votrr action rt besoin d'ajouter des pqrametres , vous pouvez appeller la fction Twig url() ds la fctin render(). cela fonctionne coe la 1ere facon, le resultat sera identique.
+      #}
    
+   {{ render(url('render_categories_in_nav')) }}
+
 
 </div>
