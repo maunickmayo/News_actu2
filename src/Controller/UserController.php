@@ -28,7 +28,7 @@ class UserController extends AbstractController
            ->handleRequest($request); 
            
            if($form->isSubmitted() && $form->isValid()) {
-               $user->setRoles(['ROLE_USER']);
+               $user->setRoles(['ROLE_ADMIN']);
                $user->setCreatedAt(new DateTime());
                $user->setUpdatedAt(new DateTime());
                //On setUpdatedAt parce que tres svt on va afficher ds l espace perso ou profil la derniere date de modif, donc si c est pas modifié ça sera la meme valeur que  la date de création.
