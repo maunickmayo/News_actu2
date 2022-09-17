@@ -33,8 +33,8 @@ class ArticleFormType extends AbstractType
             'attr' => [
                 'data-default-file' => $options['photo']
             ],
-            'required' => false,
-            'mapped' => false,
+            'required' => false, // ici aussi pour eviter des erreurs sans photos
+            'mapped' => false,  // mapping def:? pour modifier meme sans photo et ne pas avoir d'erreur
         ])
         ->add('category', EntityType::class, [
             'class' => Category::class,

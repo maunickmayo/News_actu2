@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\User;
+use App\Entity\Article;
 use App\Form\RegisterFormType;
+use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +52,55 @@ class UserController extends AbstractController
 
     }
 
+ /**
+      * @Route("/profile/mon-espace-perso", name="show_profile", methods={"GET"})
+      */
+      public function showProfile(EntityManagerInterface $entityManager): Response
+      {
+          $articles = $entityManager->getRepository(Article::class)->findBy(['author' => $this->getUser()]);
+          // on veut afficher ici les articles publiés , NB: l'admin est aussi un utilisateur donc il a aussi un profil
+          return $this->render("user/show_profile.html.twig", [
+              'articles' => $articles
+          ]);
+  
+      }
+ /**
+     * @Route("/profile/changer-mon-mot-de-passe", name="change_password", methods={"GET|POST"})
+     */
+    public function changePassword(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, Request $request): Response
+    {
+        //NB: change password peut être mis ici ou a SecurityController (puisqu'il s'git ici d 'une action de sécurité).
+        // rappel un DELIMITER ($) est un opération de fin d'instruction ( exp le ;)
 
+          $form = $this->createForm(ChangePasswordFormType::class)
+                ->handleRequest($request);
 
+      if ($form->isSubmitted() && $form->isValid()) {
+
+             
+        /** @var User $user  */  
+        // qui sert a typer pour l'auto-completion , pr que l ide sache que $user c est pour UserEntity , pour que lorsqu'on fait une flche pour acceder aux methodes il nous liste tts les methodes qu'il y ' ds USER.
+        $user = $entityManager->getRepository(User::class)->findOneBy(['id' => $this->getUser()]);
+   
+        $user->setUpdatedAt(new Datetime());
+
+        $user->setPassword($passwordHasher->hashPassword(
+            $user, $form->get('plainPassword')->getData()
+        )   // get('plainPassword') inout en entier mais quand on met get('plainPassword')->getData() on veut les données qui st à l'interieur.
+            
+        );
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this ->addFlash('success', "Votre mot de passe a bien été changé");
+        return $this->redirectToRoute('show_profile');
+    }
+
+          return $this->render('user/change_password.html.twig', [
+            'form' => $form->createView()
+          ]);
+
+    }
 
 }

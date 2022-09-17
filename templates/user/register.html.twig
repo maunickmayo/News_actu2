@@ -9,21 +9,23 @@
 {% block body %}
 
    
-         <h1 class="my-4 text-center">Inscription</h1>
-   
-   
+          {% if action is not defined %}
+                  <h1 class="my-4 text-center">Inscription</h1>
+          {% else %}
+                  <h1 class="my-4 text-center">Changer le mot de passe </h1>
+         {% endif %}   
 
          <div class="row">
-         <div class="col-6 mx-auto">
+              <div class="col-6 mx-auto">
 
-             {{ form_start(form) }}
+                  {{ form_start(form) }}
             
-            <div class="row">
+              <div class="row">
                 <div class="col-6"> {{ form_row(form.firstname) }} </div>
                 <div class="col-6"> {{ form_row(form.lastname) }} </div>
-            </div>
+              </div>
 
-            {{ form_end(form) }}  
+            {{ form_end(form) }}
             {#qd on appelle ps le form_row {form(form)} le form_end va automatiquement rendre ce tt ce qui rest#} 
         </div>
     </div>

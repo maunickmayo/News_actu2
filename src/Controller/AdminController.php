@@ -160,7 +160,7 @@ class AdminController extends AbstractController
                     # Code à exécuter en cas d'erreur.
                 }
             } else {
-                $article->setPhoto($originalPhoto);
+                $article->setPhoto($originalPhoto); // on a du ajouter qlques par dans le form pour entrer ds le else lors de l'edition pour ne pas avoir d'erreurs.
             } # end if($photo)
 
             # Ajout d'un auteur à l'article (User récupéré depuis la session)
