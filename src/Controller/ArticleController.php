@@ -32,11 +32,18 @@ class ArticleController extends AbstractController
                 'category' => $category->getId(),
                 'deletedAt' => null
             ]);
+       
+
 
         return $this->render("article/show_articles_from_category.html.twig", [
             'articles' => $articles,
             'category' => $category
         ]);
+        /*syntaxe alternative 
+  
+    return $this->render("article/show_articles_from_category.html.twig", compact('articles', 'category'));
+        */
     }
+
 
 }
